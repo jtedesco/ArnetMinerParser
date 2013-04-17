@@ -7,23 +7,20 @@ Dependencies:
 
   - Python 2.7 or greater
 
+Contains Python code for a distributed parser for the raw Arnetminer XML data. This
+parser happens in two phases:
+
+  1. A distributed parser (using 4 slave processes) that sanitizes the raw data
+    and outputs it into an intermediate format
+  2. A single-threaded parser that does several final passes to error check and
+     combine intermediate results
+
+These directories also include utilities to help debug and process the original data.
 
 Dataset
 =======
 
 These directories contain the full XML data of Arnetminer.
-
-    /
-
-Contains Python code for a distributed parser for the raw Arnetminer XML data. This
-parser happens in two phases:
-
-  1. a distributed parser (using 4 slave processes) that sanitizes the raw data
-    and outputs it into an intermediate format
-  2. a single-threaded parser that does several final passes to error check and
-     combine intermediate results
-
-These directories also include utilities to help debug and process the original data.
 
     data/
 
