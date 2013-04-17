@@ -25,7 +25,7 @@ The full Arnetminer data is assumed to be included in the working directory of t
     data/
 
 This directory is assumed to contain 1049 individual zip files, each containing roughly 1000 documents
-in XML format. This is the original data from Arnetminer.org, as of March 13, 2013.
+in XML format.
 
 The final output of the format follows a simple format that parallels that of the publicly available data sets.
 Each line begins with an identifier for the data found on that line, as is described [here](http://arnetminer.org/arnetpage-detail?id=279):
@@ -35,15 +35,17 @@ Each line begins with an identifier for the data found on that line, as is descr
     #year ---- Year
     #conf --- publication venue
     #index ---- index id of this paper
+    #path ---- the path to the XML paper in the original data
     #% ---- the id of references of this paper (there are multiple lines, with each indicating a reference)
 
 For example:
 
-    #*Spatial Data Structures.
+    #*Spatial Data Structures
     #@Hanan Samet
     #year1995
     #confModern Database Systems
     #index25
+    #path10-001.ZIP:0123/123.xml
     #%165
     #%464
     #%331
