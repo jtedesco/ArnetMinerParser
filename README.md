@@ -24,19 +24,18 @@ The full Arnetminer data is assumed to be included in the working directory of t
 
     data/
 
-This directory is assumed to contain 1049 individual zip files, each containing roughly 1000 documents
-in XML format.
+This directory is assumed to contain individual zip files, each containing documents in the Elsevier XML format.
 
 The final output of the format follows a simple format that parallels that of the publicly available data sets.
 Each line begins with an identifier for the data found on that line, as is described [here](http://arnetminer.org/arnetpage-detail?id=279):
 
     #* --- paperTitle
     #@ --- Authors
-    #year ---- Year
+    #year --- Year
     #conf --- publication venue
-    #index ---- index id of this paper
-    #path ---- the path to the XML paper in the original data
-    #% ---- the id of references of this paper (there are multiple lines, with each indicating a reference)
+    #index --- index id of this paper
+    #path --- the path to the XML paper in the original data
+    #% --- the id of references of this paper (there are multiple lines, with each indicating a reference)
 
 For example:
 

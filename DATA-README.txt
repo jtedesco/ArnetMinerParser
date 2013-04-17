@@ -28,12 +28,12 @@ hese directories contain the full XML data of Arnetminer.
 
             #* --- paperTitle
             #@ --- Authors
-            #year ---- Year
+            #year --- Year
             #conf --- publication venue
             #citation --- number of citations for this paper
-            #index ---- index id of this paper
-            #path ---- the path to the XML paper in the original data
-            #% ---- the id of references of this paper (there are multiple lines, with each indicating a reference)
+            #index --- index id of this paper
+            #path --- the path to the XML paper in the original data
+            #% --- the id of references of this paper (there are multiple lines, with each indicating a reference)
 
         For example:
 
