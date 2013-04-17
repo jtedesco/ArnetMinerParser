@@ -13,12 +13,7 @@ Dataset
 
 These directories contain the full XML data of Arnetminer.
 
-    data/
-
-Contains 1049 individual zip files, each containing roughly 1000 documents
-in XML format. This is the original data from Arnetminer.org, as of March 13, 2013.
-
-    parser/
+    /
 
 Contains Python code for a distributed parser for the raw Arnetminer XML data. This
 parser happens in two phases:
@@ -28,9 +23,14 @@ parser happens in two phases:
   2. a single-threaded parser that does several final passes to error check and
      combine intermediate results
 
+These directories also include utilities to help debug and process the original data.
+
+    data/
+
+Contains 1049 individual zip files, each containing roughly 1000 documents
+in XML format. This is the original data from Arnetminer.org, as of March 13, 2013.
 
     full_arnetminer.tgz
-
 
 Contains the final, sanitized result of parsing the raw data. This is in the the
 same format as the Arnetminer V5 ctiation dataset, except that only one index
@@ -63,4 +63,4 @@ This data was provided under a special agreement with Tsinghua University, on th
 Please, DO NOT DISTRIBUTE.
 
 Thank you,
-Jon Tedesco (tedesco1@illinois.edu)
+Jon Tedesco
