@@ -28,7 +28,9 @@ parser happens in two phases:
   2. a single-threaded parser that does several final passes to error check and
      combine intermediate results
 
+
     full_arnetminer.tgz
+
 
 Contains the final, sanitized result of parsing the raw data. This is in the the
 same format as the Arnetminer V5 ctiation dataset, except that only one index
