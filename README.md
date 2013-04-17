@@ -20,21 +20,15 @@ These directories also include utilities to help debug and process the original 
 Dataset
 =======
 
-These directories contain the full XML data of Arnetminer.
+The full Arnetminer data is assumed to be included in the working directory of the parser, under:
 
     data/
 
-Contains 1049 individual zip files, each containing roughly 1000 documents
+This directory is assumbed to contain 1049 individual zip files, each containing roughly 1000 documents
 in XML format. This is the original data from Arnetminer.org, as of March 13, 2013.
 
-    full_arnetminer.tgz
-
-Contains the final, sanitized result of parsing the raw data. This is in the the
-same format as the Arnetminer V5 ctiation dataset, except that only one index
-is found for each document (http://arnetminer.org/arnetpage-detail?id=279)
-
-Within this archive, you will find one plain text file. Each line begins with an
-identifier for the data found on that line, as is described at the above website:
+The final output of the format follows a simple format that parallels that of the publicly available datasets.
+Each line begins with an identifier for the data found on that line, as is described [here](http://arnetminer.org/arnetpage-detail?id=279):
 
     #* --- paperTitle
     #@ --- Authors
@@ -54,10 +48,3 @@ For example:
     #%464
     #%331
     #%963
-
-This data was provided under a special agreement with Tsinghua University, on the condition that it does not leave our research group.
-
-Please, DO NOT DISTRIBUTE.
-
-Thank you,
-Jon Tedesco
