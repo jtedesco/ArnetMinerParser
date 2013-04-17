@@ -23,18 +23,16 @@ in XML format. This is the original data from Arnetminer.org, as of March 13, 20
 Contains Python code for a distributed parser for the raw Arnetminer XML data. This
 parser happens in two phases:
 
-    1.  a distributed parser (using 4 slave processes) that sanitizes the raw data
-        and outputs it into an intermediate format
-    2.  a single-threaded parser that does several final passes to error check and
-        combine intermediate results
+  1.a distributed parser (using 4 slave processes) that sanitizes the raw data
+    and outputs it into an intermediate format
+  2. a single-threaded parser that does several final passes to error check and
+     combine intermediate results
 
     full_arnetminer.tgz
 
 Contains the final, sanitized result of parsing the raw data. This is in the the
 same format as the Arnetminer V5 ctiation dataset, except that only one index
-is found for each document:
-
-    (http://arnetminer.org/arnetpage-detail?id=279)
+is found for each document (http://arnetminer.org/arnetpage-detail?id=279)
 
 Within this archive, you will find one plain text file. Each line begins with an
 identifier for the data found on that line, as is described at the above website:
