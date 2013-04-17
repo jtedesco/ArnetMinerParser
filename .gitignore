@@ -37,3 +37,7 @@ nosetests.xml
 # Special cases
 upload_to_dmserv.sh
 zip_and_copy_final_output.sh
+
+# Data output
+data
+intermediate_output
