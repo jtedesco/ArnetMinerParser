@@ -96,6 +96,6 @@ if __name__ == '__main__':
         for filename, xml_file_name in matches[string_group]:
             subprocess.Popen('unzip -d %s %s %s' % (
                 os.path.join(inspect_dir, string_group),
-                os.path.join('data', filename),
+                os.path.join('../data', filename),
                 xml_file_name
             ), shell=True)
