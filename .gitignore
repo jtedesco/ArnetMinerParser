@@ -41,3 +41,4 @@ zip_and_copy_final_output.sh
 # Data output
 data
 intermediate_output
+stats
