@@ -24,10 +24,10 @@ The full Arnetminer data is assumed to be included in the working directory of t
 
     data/
 
-This directory is assumbed to contain 1049 individual zip files, each containing roughly 1000 documents
+This directory is assumed to contain 1049 individual zip files, each containing roughly 1000 documents
 in XML format. This is the original data from Arnetminer.org, as of March 13, 2013.
 
-The final output of the format follows a simple format that parallels that of the publicly available datasets.
+The final output of the format follows a simple format that parallels that of the publicly available data sets.
 Each line begins with an identifier for the data found on that line, as is described [here](http://arnetminer.org/arnetpage-detail?id=279):
 
     #* --- paperTitle
