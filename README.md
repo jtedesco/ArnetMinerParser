@@ -17,8 +17,8 @@ parser happens in two phases:
 
 These directories also include utilities to help debug and process the original data.
 
-Dataset
-=======
+Data Format
+===========
 
 The full Arnetminer data is assumed to be included in the working directory of the parser, under:
 
