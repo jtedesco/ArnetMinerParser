@@ -33,3 +33,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Special cases
+upload_to_dmserv.sh
+zip_and_copy_final_output.sh
