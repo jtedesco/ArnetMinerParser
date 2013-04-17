@@ -556,7 +556,13 @@ def build_title_and_venue_tallies_message():
     return output_message
 
 
-def output_progress(num_to_skip, estimated_total_documents, zip_files_to_process, zip_files_processed, flush=False):
+def output_progress(
+        num_to_skip,
+        estimated_total_documents,
+        zip_files_to_process,
+        zip_files_processed,
+        documents_processed,
+        flush=False):
     """
       Output the current parser progress
     """
@@ -649,7 +655,9 @@ def main(output_path, num_to_skip, num_to_process, tally_venues_and_titles=False
 
             # Write the current progress to stdout (intermittently)
             if documents_processed % 100 == 0:
-                output_progress(num_to_skip, estimated_total_documents, num_to_process, zip_files_processed)
+                output_progress(
+                    num_to_skip, estimated_total_documents, num_to_process, zip_files_processed, documents_processed
+                )
 
         # Output parsing progress
         zip_files_processed += 1
@@ -658,7 +666,9 @@ def main(output_path, num_to_skip, num_to_process, tally_venues_and_titles=False
         zipped_file.close()
 
         # Update the progress
-        output_progress(num_to_skip, estimated_total_documents, num_to_process, zip_files_processed, flush=True)
+        output_progress(
+            num_to_skip, estimated_total_documents, num_to_process, zip_files_processed, documents_processed, flush=True
+        )
 
     # Output document & reference statistics
     output_message = build_document_stats_message()
