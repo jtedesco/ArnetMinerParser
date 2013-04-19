@@ -135,7 +135,7 @@ def parse_intermediate_arnetminer_dataset():
     """
 
     # Find intermediate output data
-    laptop_input_path = 'intermediate_output-real-040613321'
+    laptop_input_path = 'somepaththatdoesntexist'
     generic_input_path = 'intermediate_output'
     input_folder_path = laptop_input_path if os.path.exists(laptop_input_path) else generic_input_path
 
