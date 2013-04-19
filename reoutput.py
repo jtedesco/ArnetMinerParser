@@ -6,7 +6,7 @@ totals_dir = defaultdict(int)
 
 keys_order = []
 
-folder = "intermediate_output-real-040913"
+folder = "intermediate_output"
 for filename in os.listdir(folder):
     if not filename.endswith('-stats.txt'):
         continue
