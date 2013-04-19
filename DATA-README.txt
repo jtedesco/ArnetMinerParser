@@ -1,4 +1,4 @@
-hese directories contain the full XML data of Arnetminer.
+These directories contain the full XML data of Arnetminer.
 
     data/
 
