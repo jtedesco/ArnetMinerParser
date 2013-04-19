@@ -22,6 +22,7 @@ intermediate_results_folder = 'intermediate_output'
 documents_found = 0
 documents_processed = 0
 books_skipped = 0
+documents_errors = 0
 documents_missing_authors = 0
 documents_missing_venue = 0
 documents_missing_title = 0
@@ -310,7 +311,8 @@ def gen_documents_from_file(zipped_file):
     global books_skipped, documents_found, documents_processed, documents_missing_authors, documents_missing_title, \
         documents_fb_non_chapter, documents_missing_authors_fb_non_chapter, \
         documents_skipped_from_title, references_attempted, references_without_titles, references_without_authors, \
-        references_without_date, should_output_path, hash_collision_count, hash_collisions, documents_missing_venue
+        references_without_date, should_output_path, hash_collision_count, hash_collisions, documents_missing_venue, \
+        documents_errors
 
     for name in zipped_file.namelist():
 
@@ -440,6 +442,7 @@ def gen_documents_from_file(zipped_file):
 
             # Handle all exceptions by tallying unforeseen errors
             log(num_to_skip, "[Unexpected Error] '%s'" % traceback.format_exc())
+            documents_errors += 1
             continue
 
         documents_processed += 1
@@ -515,6 +518,9 @@ def build_document_stats_message():
     n -= documents_missing_authors
     output_message += "\tDocuments Missing Venue: %d / %d (%2.2f%%)\n" % count_and_percent(documents_missing_venue, n)
     n -= documents_missing_venue
+    output_message += '\tDocuments Skipped (Unknown Error): %d / %d (%2.2f%%)\n' % \
+                      count_and_percent(documents_errors, n)
+    n -= documents_errors
 
     if n != documents_processed:
         print "Document tally failed!!! n: %d, actually succeeded: %d" % (n, documents_processed)
