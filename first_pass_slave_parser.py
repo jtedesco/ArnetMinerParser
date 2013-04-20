@@ -1,4 +1,6 @@
+from Stemmer import Stemmer
 import cProfile
+import json
 import os
 import re
 import socket
@@ -13,7 +15,7 @@ from xml.etree import cElementTree
 from _socket import AF_INET, SOCK_DGRAM
 
 # The path to the input data
-data_path = '/Users/jontedesco/Documents/Dropbox/Research/Parsing Full Arnetminer XML/data'
+data_path = 'data'
 if not os.path.exists(data_path):
     data_path = '/mnt/fcroot/full-arnetminer/data'
 intermediate_results_folder = 'intermediate_output'
@@ -74,6 +76,12 @@ client_socket = socket.socket(AF_INET, SOCK_DGRAM)
 # Inefficient tallies
 title_counts = defaultdict(int)
 venue_counts = defaultdict(int)
+
+# Get the stop words set & stemmer for text analysis
+stop_words = None
+with open('stopWords.json') as stop_words_file:
+    stop_words = set(json.load(stop_words_file))
+stemmer = Stemmer('english')
 
 
 class DBLPParseError(Exception):
@@ -142,19 +150,6 @@ def author_given_name_from_element(author_element):
     return str(printable(given_name_el.text.split()[-1]))
 
 
-def all_authors_strings_from_elements(author_elements):
-    """
-      Get the list of strings for author surnames
-    """
-
-    authors_strings = []
-    for el in author_elements:
-        surname = author_surname_from_element(el)
-        if surname is not None:
-            authors_strings.append(surname)
-    return authors_strings
-
-
 def full_authors_string_from_elements(author_elements):
     """
       Get the comma-separated list of authors from a list of author XML elements
@@ -177,6 +172,17 @@ def clean_string_from_element(element):
     raw_text = element.text
     clean_text = re.sub(r'\s+', ' ', raw_text.strip()) if raw_text is not None else None
     return clean_text
+
+
+def ascii_terms_from_element(element):
+    """
+      Get the text of the terms from an element, after stemming and removing stop words
+    """
+
+    words = element.text.split()
+    terms = [ascii_printable(stemmer.stemWord(word.lower())) for word in words if word.lower() not in stop_words]
+    terms = [str(term) for term in terms if term is not None]
+    return ''.join(terms)
 
 
 def ascii_text_from_element(element):
@@ -267,7 +273,7 @@ def parse_references(doc_root, aggregation_type):
         if title is None:
             title = host.find('*/*/{http://www.elsevier.com/xml/common/struct-bib/schema}maintitle')
         if title is not None:
-            title = ascii_text_from_element(title)
+            title = ascii_terms_from_element(title)
 
         # Handle missing or invalid titles
         if title is None:
@@ -356,6 +362,7 @@ def gen_documents_from_file(zipped_file):
             # Paper title
             title_element = doc_root.find('*/*/{http://purl.org/dc/elements/1.1/}title')
             title = clean_string_from_element(title_element)
+            hashable_title = None if (title is None) else ascii_terms_from_element(title_element)
 
             # Skip this document if title is missing or empty
             if title is None or not len(title.strip()):
@@ -419,21 +426,15 @@ def gen_documents_from_file(zipped_file):
                 raise AssertionError("Found year before 1800 or after 2013!")
 
             # Calculate the hash (or 'index') for this document
-            if first_author_surname is not None:
+            index = hash_document_data(hashable_title, first_author_surname)
 
-                # Hash the title without any non-letter characters
-                plain_title = str(ascii_printable(title.strip()))
-                index = hash_document_data(plain_title, first_author_surname)
-
-                # Ensure that this paper's index is unique & record it
-                if check_hash_collisions:
-                    if index in hashes_seen:
-                        hash_collision_count += 1
-                        hash_collisions.add(index)
-                    else:
-                        hashes_seen.add(index)
-            else:
-                continue
+            # Ensure that this paper's index is unique & record it
+            if check_hash_collisions:
+                if index in hashes_seen:
+                    hash_collision_count += 1
+                    hash_collisions.add(index)
+                else:
+                    hashes_seen.add(index)
 
             # Parse the references for this document
             reference_ids = parse_references(doc_root, aggregation_type_element.text)
