@@ -1,4 +1,3 @@
-from Stemmer import Stemmer
 import cProfile
 import json
 import os
@@ -81,7 +80,7 @@ venue_counts = defaultdict(int)
 stop_words = None
 with open('stopWords.json') as stop_words_file:
     stop_words = set(json.load(stop_words_file))
-stemmer = Stemmer('english')
+# stemmer = Stemmer('english')
 
 
 class DBLPParseError(Exception):
@@ -176,13 +175,11 @@ def clean_string_from_element(element):
 
 def ascii_terms_from_element(element):
     """
-      Get the text of the terms from an element, after stemming and removing stop words
+      Get the text of the terms from an element, after removing stop words
     """
 
-    words = element.text.split()
-    terms = [ascii_printable(stemmer.stemWord(word.lower())) for word in words if word.lower() not in stop_words]
-    terms = [str(term) for term in terms if term is not None]
-    return ''.join(terms)
+    words = element.text.lower().split()
+    return ''.join([word for word in words if word not in stop_words])
 
 
 def ascii_text_from_element(element):
@@ -197,9 +194,9 @@ def ascii_text_from_element(element):
 
 def hash_document_data(title, authors_string):
     """
-      Calculate MD5 hash based on uniquely identifying doc data
+      Calculate MD5 hash based on uniquely identifying doc data, stripping all non-ascii text out of key
     """
-    data_string = '%sZZZ%s' % (title.strip().lower(), authors_string.strip().lower())
+    data_string = str(ascii_printable('%s%s' % (title.strip().lower(), authors_string.strip().lower())))
     data_hash = int(hashlib.sha1(data_string.encode('utf-8')).hexdigest(), 16)
     return data_hash
 
