@@ -15,8 +15,6 @@ from xml.etree import cElementTree
 from _socket import AF_INET, SOCK_DGRAM
 
 # The path to the input data
-from utilities.search_arnetminer import stemmer
-
 data_path = 'data'
 if not os.path.exists(data_path):
     data_path = '/mnt/fcroot/full-arnetminer/data'
