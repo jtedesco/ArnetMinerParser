@@ -52,7 +52,7 @@ def output_total_progress(slave_progress):
 if __name__ == '__main__':
 
     # Calculate number of slaves to spawn
-    files_per_slave = 263
+    files_per_slave = 351
     number_of_slaves = int(math.ceil(float(total_zip_files) / files_per_slave))
 
     # Map of slave ids to progress data
