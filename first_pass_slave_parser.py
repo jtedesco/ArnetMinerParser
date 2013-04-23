@@ -1,3 +1,4 @@
+from Stemmer import Stemmer
 import cProfile
 import json
 import os
@@ -82,7 +83,7 @@ venue_counts = defaultdict(int)
 stop_words = None
 with open('stopWords.json') as stop_words_file:
     stop_words = set(json.load(stop_words_file))
-# stemmer = Stemmer('english')
+stemmer = Stemmer('english')
 
 
 class DBLPParseError(Exception):
