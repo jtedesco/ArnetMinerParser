@@ -14,6 +14,8 @@ from xml.etree import cElementTree
 from _socket import AF_INET, SOCK_DGRAM
 
 # The path to the input data
+from utilities.search_arnetminer import stemmer
+
 data_path = 'data'
 if not os.path.exists(data_path):
     data_path = '/mnt/fcroot/full-arnetminer/data'
@@ -52,7 +54,7 @@ hash_collision_count = 0
 hash_collisions = set()
 check_hash_collisions = False
 
-# Shortcut for filtering a strint to printable characters
+# Shortcut for filtering a string to printable characters
 printable = lambda s: filter(lambda x: x in string.printable, s)
 ascii_printable = lambda s: filter(lambda x: x in string.letters, s)
 
@@ -182,6 +184,17 @@ def ascii_terms_from_element(element):
     return ''.join([word for word in words if word not in stop_words])
 
 
+def ascii_stemmed_terms_from_element(element):
+    """
+      Get the text of the terms from an element, after removing stop words and stemming
+    """
+
+    words = str(element.text).split()
+    terms = [ascii_printable(stemmer.stemWord(word.lower())) for word in words if word.lower() not in stop_words]
+    terms = [str(term) for term in terms if term is not None]
+    return ''.join(terms)
+
+
 def ascii_text_from_element(element):
     """
       Get the text, only ascii plain text, from the given XML element
@@ -270,7 +283,7 @@ def parse_references(doc_root, aggregation_type):
         if title is None:
             title = host.find('*/*/{http://www.elsevier.com/xml/common/struct-bib/schema}maintitle')
         if title is not None:
-            title = ascii_terms_from_element(title)
+            title = ascii_stemmed_terms_from_element(title)
 
         # Handle missing or invalid titles
         if title is None:
@@ -359,7 +372,7 @@ def gen_documents_from_file(zipped_file):
             # Paper title
             title_element = doc_root.find('*/*/{http://purl.org/dc/elements/1.1/}title')
             title = clean_string_from_element(title_element)
-            hashable_title = None if (title is None) else ascii_terms_from_element(title_element)
+            hashable_title = None if (title is None) else ascii_stemmed_terms_from_element(title_element)
 
             # Skip this document if title is missing or empty
             if title is None or not len(title.strip()):
