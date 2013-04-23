@@ -43,6 +43,7 @@ upload_to_dmserv.sh
 zip_and_copy_final_output.sh
 
 # Data output
-data
-intermediate_output
-stats
+data/*
+intermediate_output/*
+stats/*
+final_output/*
