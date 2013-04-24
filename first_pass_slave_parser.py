@@ -70,7 +70,7 @@ year_regex = re.compile(r'\D(\d{4})\D')
 output_to_standard_out = True
 
 # Data for localhost progress UDP server
-server_address = ('localhost', 6005)
+server_address = ('localhost', 40404)
 client_socket = socket.socket(AF_INET, SOCK_DGRAM)
 
 # Inefficient tallies
