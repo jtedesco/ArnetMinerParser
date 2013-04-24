@@ -88,11 +88,11 @@ if __name__ == '__main__':
     not_ready_iterations = 0
     while True:
 
-        # Assume children have finished if this happens ten times
+        # Assume children have finished if this happens enough times
         ready = select.select([server_socket], [], [], 1)
-        if not ready[0]:
+        if ready[0]:
             not_ready_iterations += 1
-            if not_ready_iterations > 10000:
+            if not_ready_iterations > 3600:  # If we've been waiting for one hour...
                 print "\nNo messages received from children, assuming complete..."
                 break
         else:
